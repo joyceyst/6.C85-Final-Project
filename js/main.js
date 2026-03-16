@@ -21,8 +21,12 @@ function updateDots(idx) {
 }
 
 // ============ SLIDE NAVIGATION ============
-function goToSlide(i) {
-  if (i < 0 || i >= slides.length || i === currentSlideIdx || isTransitioning) return;
+const TRANSITION_DURATION = 1600; // ms lock between scroll navigations
+
+function goToSlide(i, force) {
+  if (i < 0 || i >= slides.length) return;
+  if (!force && (i === currentSlideIdx || isTransitioning)) return;
+
   isTransitioning = true;
   currentSlideIdx = i;
 
@@ -30,18 +34,18 @@ function goToSlide(i) {
   updateDots(i);
   onSlideEnter(slides[i]);
 
-  // Lock out further navigation until transition completes
-  setTimeout(() => { isTransitioning = false; }, 800);
+  // Lock out further scroll/wheel/key navigation until transition completes
+  setTimeout(() => { isTransitioning = false; }, TRANSITION_DURATION);
 }
 
-// Kept for backward compat with onclick handlers in HTML
-function scrollToSlide(i) { goToSlide(i); }
+// Button-initiated navigation always forces through (bypasses transition lock)
+function scrollToSlide(i) { goToSlide(i, true); }
 
 function scrollToId(id) {
   const el = document.getElementById(id);
   if (!el) return;
   const idx = Array.from(slides).indexOf(el);
-  if (idx >= 0) goToSlide(idx);
+  if (idx >= 0) goToSlide(idx, true);
 }
 
 function nextSlide() {
