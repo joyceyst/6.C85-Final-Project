@@ -20,6 +20,11 @@
 html {
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 body {
@@ -93,13 +98,6 @@ body {
 }
 .btn:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(204, 255, 0, 0.3); }
 .btn:active { transform: scale(0.97); }
-
-.btn-outline {
-  background: transparent;
-  border: 2px solid var(--neon);
-  color: var(--neon);
-}
-.btn-outline:hover { background: rgba(204,255,0,0.1); }
 
 /* ============ DOT INDICATORS ============ */
 .dots {
@@ -460,11 +458,6 @@ input[type="range"]::-moz-range-thumb {
   opacity: 0.82;
 }
 
-.competitor-card.full {
-  grid-column: 1 / -1;
-  min-height: auto;
-}
-
 .callout-card {
   background: rgba(255,59,59,0.2);
   border: 1px solid rgba(255,59,59,0.4);
@@ -663,14 +656,6 @@ input[type="range"]::-moz-range-thumb {
   width: 14px;
   height: 4px;
   border-radius: 999px;
-}
-
-.section-transition {
-  width: 100%;
-  margin-top: 6px;
-  font-size: 15px;
-  font-weight: 700;
-  opacity: 0.9;
 }
 
 /* ============ SLIDE 5 — Wrapped Intro (Neighborhood Map) ============ */
@@ -1018,31 +1003,16 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .year-slider-wrap input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
   flex: 1;
-  height: 6px;
-  border-radius: 3px;
-  background: rgba(255,255,255,0.15);
-  outline: none;
 }
 .year-slider-wrap input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
-  background: var(--neon);
-  cursor: pointer;
   box-shadow: 0 0 12px rgba(204,255,0,0.4);
 }
 .year-slider-wrap input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
-  border-radius: 50%;
-  background: var(--neon);
-  cursor: pointer;
-  border: none;
 }
 
 .play-btn {
@@ -1546,12 +1516,6 @@ input[type="range"]::-moz-range-thumb {
   font-weight: 700;
   opacity: 0.2;
   margin-top: 32px;
-}
-
-.back-link {
-  margin-top: 16px;
-  font-size: 13px;
-  opacity: 0.5;
 }
 
 /* ============ Responsive ============ */

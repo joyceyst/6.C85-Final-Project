@@ -1,3 +1,21 @@
+// ============ HELPERS ============
+function formatCurrency(n) {
+  return '$' + n.toLocaleString('en-US');
+}
+
+function countUp(el, start, end, duration, isCurrency) {
+  const startTime = performance.now();
+  function tick(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.round(start + (end - start) * eased);
+    el.textContent = isCurrency ? formatCurrency(current) : current.toLocaleString();
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
 // ============ GLOBALS ============
 const slides = document.querySelectorAll('.slide');
 const dotsContainer = document.getElementById('dots');
@@ -116,6 +134,10 @@ let wheelTimer = null;
 const WHEEL_THRESHOLD = 80;
 
 document.addEventListener('wheel', (e) => {
+  // Don't hijack wheel when user is interacting with form controls
+  const tag = e.target.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
   e.preventDefault();
   if (isTransitioning) return;
 
@@ -390,8 +412,13 @@ function shareCard() {
 
 // ============ TOUCH NAVIGATION ============
 let touchStartY = 0;
-document.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+document.addEventListener('touchstart', e => {
+  // Don't track touch on interactive controls
+  if (e.target.closest('input, button, .slider-container, .year-slider-wrap, .currency-input-wrap')) return;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
 document.addEventListener('touchend', e => {
+  if (e.target.closest('input, button, .slider-container, .year-slider-wrap, .currency-input-wrap')) return;
   const diff = touchStartY - e.changedTouches[0].clientY;
   if (Math.abs(diff) < 50) return;
   if (diff > 0) nextSlide();
