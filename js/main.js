@@ -438,3 +438,12 @@ window.addEventListener('load', () => {
   initYearSlider();
   initParticles();
 });
+
+function toggleOverlay(show) {
+  const overlay = document.getElementById('resourceOverlay');
+  if (show) {
+    overlay.classList.add('active');
+  } else {
+    overlay.classList.remove('active');
+  }
+}
