@@ -458,7 +458,49 @@
     <h1 class="headline anim anim-delay-1" style="font-size:28px;">Your neighborhood<br>is <span>not for sale</span></h1>
     <p class="subheadline anim anim-delay-2" style="font-size:14px;">Corporate ownership in Boston has quadrupled in 20 years. The question isn't whether it will keep growing, but whether we'll do anything about it.</p>
 
-    <button class="btn anim anim-delay-2" onclick="shareCard()">Share</button>
+<div class="cta-row anim anim-delay-2" style="display: flex; gap: 10px; justify-content: center;">
+  <button class="btn" onclick="shareCard()">Share</button>
+  <button class="btn btn-outline" onclick="toggleOverlay(true)">Get Help & Resources</button>
+</div>
+
+<div id="resourceOverlay" class="overlay">
+  <div class="overlay-content">
+    <button class="close-btn" onclick="toggleOverlay(false)">&times;</button>
+    <h2 class="overlay-title">Take Action</h2>
+    <p class="overlay-subtitle">Resources for navigating the Boston housing market.</p>
+    
+    <div class="resource-list">
+      <a href="https://www.boston.gov/departments/housing" target="_blank" class="res-item">
+        <span class="res-icon">🏛️</span>
+        <div class="res-info">
+          <strong>City of Boston Housing</strong>
+          <span>Down payment assistance & programs</span>
+        </div>
+      </a>
+      <a href="https://www.masshousing.com/" target="_blank" class="res-item">
+        <span class="res-icon">🏡</span>
+        <div class="res-info">
+          <strong>MassHousing</strong>
+          <span>Affordable mortgage & low-interest loans</span>
+        </div>
+      </a>
+      <a href="https://www.mahahome.com/" target="_blank" class="res-item">
+        <span class="res-icon">🎓</span>
+        <div class="res-info">
+          <strong>MAHA (Homebuyer Ed)</strong>
+          <span>Classes required for special loan rates</span>
+        </div>
+      </a>
+      <a href="https://www.clvu.org/" target="_blank" class="res-item">
+        <span class="res-icon">✊</span>
+        <div class="res-info">
+          <strong>City Life / Vida Urbana</strong>
+          <span>Tenant rights & housing justice advocacy</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
     <div class="social-row anim anim-delay-3">
       <div class="social-icon" title="Copy link">🔗</div>
       <div class="social-icon" title="X / Twitter">𝕏</div>
