@@ -106,11 +106,7 @@ function onSlideEnter(slide) {
 
   if (slide.id === 'slide-shift' && !shiftAnimated) {
     shiftAnimated = true;
-    setTimeout(() => {
-      document.querySelectorAll('.shift-bar-late').forEach(bar => {
-        bar.style.width = bar.getAttribute('data-width') + '%';
-      });
-    }, 400);
+    animateShiftBars();
   }
 }
 
