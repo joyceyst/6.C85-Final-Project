@@ -1739,6 +1739,45 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* ============ DATA SOURCE FOOTNOTES ============ */
+/* ============ HEADLINES SLIDE ============ */
+.headlines-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.headline-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-left: 3px solid var(--neon);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  text-align: left;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.headline-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}
+
+.headline-source {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 4px;
+}
+
+.headline-text {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--white);
+}
+
 .data-source {
   position: absolute;
   bottom: 12px;
