@@ -181,10 +181,11 @@ function revealPrice() {
 
 // ============ DONUT CHART (Slide 3) ============
 const donutOrder = [
-  { key: 'individual', id: 'seg-individual' },
-  { key: 'llc', id: 'seg-llc' },
-  { key: 'trust', id: 'seg-trust' },
-  { key: 'other', id: 'seg-other' }
+  { key: 'nonInvestor', id: 'seg-nonInvestor' },
+  { key: 'small', id: 'seg-small' },
+  { key: 'medium', id: 'seg-medium' },
+  { key: 'large', id: 'seg-large' },
+  { key: 'institutional', id: 'seg-institutional' }
 ];
 
 function pct(value, total) {
@@ -213,11 +214,51 @@ function drawDonut(data) {
   });
 }
 
+function updateCompetitionCards(name) {
+  const data = neighborhoodMix[name];
+  if (!data) return;
+
+  const nonInvestorPct = roundedPct(data.nonInvestor, data.total);
+  const smallPct = roundedPct(data.small, data.total);
+  const mediumPct = roundedPct(data.medium, data.total);
+  const largePct = roundedPct(data.large, data.total);
+  const institutionalPct = roundedPct(data.institutional, data.total);
+
+  const investorTotal =
+    data.small + data.medium + data.large + data.institutional;
+  const investorPct = roundedPct(investorTotal, data.total);
+
+  document.getElementById('legend-nonInvestor').textContent = `Non-investors ${nonInvestorPct}%`;
+  document.getElementById('legend-small').textContent = `Small investors ${smallPct}%`;
+  document.getElementById('legend-medium').textContent = `Medium investors ${mediumPct}%`;
+  document.getElementById('legend-large').textContent = `Large investors ${largePct}%`;
+  document.getElementById('legend-institutional').textContent = `Institutional ${institutionalPct}%`;
+
+  document.getElementById('nonInvestorCard').textContent = `${nonInvestorPct}%`;
+  document.getElementById('smallCard').textContent = `${smallPct}%`;
+  document.getElementById('mediumCard').textContent = `${mediumPct}%`;
+  document.getElementById('largeCard').textContent = `${largePct}%`;
+  document.getElementById('institutionalCard').textContent = `${institutionalPct}%`;
+
+  document.getElementById('competitionCallout').innerHTML =
+    `In <span>${name}</span>, <span>${investorPct}%</span> of buyers are investors.`;
+
+  if (donutAnimated) drawDonut(data);
+}
+
 function animateDonut() {
   if (donutAnimated) return;
   donutAnimated = true;
-  drawDonut(citywideMix);
+  drawDonut(neighborhoodMix['Dorchester']);
 }
+
+document.querySelectorAll('.neighborhood-pills .pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.neighborhood-pills .pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    updateCompetitionCards(pill.dataset.hood);
+  });
+});
 
 // ============ ADVANTAGE BARS (Slide 4) ============
 function animateAdvantageBars() {
@@ -409,7 +450,7 @@ document.addEventListener('touchend', e => {
 window.addEventListener('load', () => {
   // Trigger first slide animations
   onSlideEnter(slides[0]);
-  drawDonut(citywideMix);
+  updateCompetitionCards('Dorchester');
 
   // Map init
   buildMap();
